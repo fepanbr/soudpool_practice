@@ -2,6 +2,7 @@ package fastcampus.aop.part2.soud_practice
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.widget.SeekBar
 import android.widget.TextView
 
@@ -41,5 +42,15 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    private fun createCountDownTimer(initialMilis: Long) = object : CountDownTimer(initialMilis, 1000L) {
+        override fun onTick(millisUntilFinished: Long) {
+            TODO("Not yet implemented")
+        }
+
+        override fun onFinish() {
+            TODO("Not yet implemented")
+        }
     }
 }
