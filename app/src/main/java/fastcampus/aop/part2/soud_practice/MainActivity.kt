@@ -30,11 +30,13 @@ class MainActivity : AppCompatActivity() {
     private fun bindView() {
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                TODO("Not yet implemented")
+                if (fromUser) {
+                    updateRemainTime(progress * 60 * 1000L)
+                }
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                TODO("Not yet implemented")
+//                stopCountDown()
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
@@ -44,13 +46,33 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun createCountDownTimer(initialMilis: Long) = object : CountDownTimer(initialMilis, 1000L) {
+    private fun createCountDownTimer(initialMilis: Long) =
+        object : CountDownTimer(initialMilis, 1000L) {
         override fun onTick(millisUntilFinished: Long) {
-            TODO("Not yet implemented")
+            updateRemainTime(millisUntilFinished)
+            updateSeekbar(millisUntilFinished)
         }
 
         override fun onFinish() {
             TODO("Not yet implemented")
         }
     }
+
+    private fun updateRemainTime(remainMillis: Long) {
+        val remainSeconds = remainMillis / 1000
+
+        remainSecondsTextView.text = "%02d'".format(remainSeconds / 60)
+        remainMinutesTextView.text = "%02d".format(remainSeconds % 60)
+    }
+
+    private fun updateSeekbar(remainMillis: Long) {
+        seekBar.progress = (remainMillis / 1000 / 60).toInt()
+
+    }
+
+//    private fun stopCountDown() {
+//        currentCountDownTimer?.cancel()
+//        currentCountDownTimer = null
+//        soundPool.autoPause()
+//    }
 }
